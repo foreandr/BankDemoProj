@@ -1,0 +1,62 @@
+﻿{
+  "definitions": {},
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://example.com/object1654557681.json",
+  "title": "Root",
+  "type": "object",
+  "required": [
+    "properties"
+  ],
+  "properties": {
+    "properties": {
+      "$id": "#root/properties",
+      "title": "Properties",
+      "type": "object",
+      "required": [
+        "Description",
+        "UserId",
+        "LoginUrl",
+        "AccountNum",
+        "Password"
+      ],
+      "properties": {
+        "Description": {
+          "$id": "#root/properties/Description",
+          "title": "Description",
+          "type": "string",
+          "default": "",
+          "pattern": "^.*$"
+        },
+        "UserId": {
+          "$id": "#root/properties/UserId",
+          "title": "Userid",
+          "type": "string",
+          "default": "",
+          "pattern": "^.*$"
+        },
+        "LoginUrl": {
+          "$id": "#root/properties/LoginUrl",
+          "title": "Loginurl",
+          "type": "string",
+          "default": "",
+          "pattern": "^.*$"
+        },
+        "AccountNum": {
+          "$id": "#root/properties/AccountNum",
+          "title": "Accountnum",
+          "type": "string",
+          "default": "",
+          "pattern": "^.*$"
+        },
+        "Password": {
+          "$id": "#root/properties/Password",
+          "title": "Password",
+          "type": "string",
+          "default": "",
+          "pattern": "^.*$"
+        }
+      }
+    }
+
+  }
+}
