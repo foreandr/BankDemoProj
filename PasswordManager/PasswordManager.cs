@@ -27,19 +27,10 @@ namespace PasswordManager
         static void Main(string[] args)
         {
             Helper my_helper = new Helper();
-
-            // my_helper.print_stuff();
-            string path = "C:/Users/forea/Downloads/Project 1 Starting Code (revised)/PasswordManager/PasswordManager/JSONFILES/";
-            string data_text = System.IO.File.ReadAllText(path + "demo_data.json");     // CHANGE THIS TO BE USER INPUT TO VALIDATE
-            string data_schema = System.IO.File.ReadAllText(path + "demo_schema.json"); //
-            // string muti_demo = System.IO.File.ReadAllText(path + "muti_demo.json"); // 
+            string path = my_helper.confiure_path();
+            string data_schema = System.IO.File.ReadAllText(path + "demo_schema.json");
 
             List<Account> accounts = new List<Account>();
-
-
-            // CHECKING ADD
-            Account demo_account = my_helper.create_demo_account(data_text, data_schema);
-            accounts.Add(demo_account);
             
             my_helper.print_accounts(accounts);
 
@@ -99,9 +90,6 @@ namespace PasswordManager
                     my_helper.write_to_file(path, accounts);
                 }
             }
-            
-           
-
         }
 
     } // end class

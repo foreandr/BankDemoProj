@@ -316,12 +316,16 @@ namespace PasswordManager
             string chosen_option = Console.ReadLine();
             return chosen_option;      
         }
+        public string confiure_path()
+        {
+            //string path = "C:/Users/forea/Downloads/Project 1 Starting Code (revised)/PasswordManager/PasswordManager/JSONFILES/";
+            string path = Directory.GetCurrentDirectory();
+            string part = path.Substring(0, path.IndexOf("bin"));
+            part += "JSONFILES\\";
+            Console.WriteLine(part);
+            
+            return part;
+
+        }
     }
 }
-
-/*
-public List<Account> add_account(List<Account> accounts, Account account)
-{
-    return accounts;
-}
-*/
