@@ -26,6 +26,13 @@ namespace PasswordManager
             JObject data = JObject.Parse(test_string);
             return data;
         }
+        public string convert_to_string()
+        {
+            string test_string = string.Format("{{\n\t\"properties\": {{\n\t\t\"Description\": \"{0}\",\n\t\t\"UserId\": \"{1}\",\n\t\t\"LoginUrl\": \"{2}\",\n\t\t\"AccountNum\": \"{3}\",\n\t\t\"Password\": \"{4}\"\n\t}}\n}}", Description, UserId, LoginUrl, AccountNum, Password);
+
+            return test_string;
+        }
+
         public void wipe_account()
         {
             Description = "";

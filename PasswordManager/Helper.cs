@@ -2,6 +2,7 @@
 using Newtonsoft.Json.Schema;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -94,14 +95,14 @@ namespace PasswordManager
             //Console.WriteLine(isValid);
             if (!isValid)
             {
-                Console.WriteLine("Error in account creation, no account created");
+                Console.WriteLine("INVALID: Error in account creation, no account created");
                 new_account.wipe_account();
                 return new_account;
 
             }
             else
             {
-                Console.WriteLine("Account created");
+                Console.WriteLine("VALID: Account created");
 
                 // CHECK VALIDATE ACCOUNT
                 return new_account;
@@ -150,21 +151,171 @@ namespace PasswordManager
             //Console.WriteLine(isValid);
             if (!isValid)
             {
-                Console.WriteLine("Error in account creation, no account created");
+                Console.WriteLine("INVALID: Error in account creation, no account created");
                 account.wipe_account();
                 return account;
 
             }
             else
             {
-                Console.WriteLine("Account created");
+                Console.WriteLine("VALID: Account created");
 
                 // CHECK VALIDATE ACCOUNT
                 return account;
             }
 
         }
+        public List<Account> create_multi_demo_account(string data_string, string schema)
+        {
+            List<Account> accounts = new List<Account>();
 
+
+            //JObject data = JObject.Parse(data_string);
+
+            Environment.Exit(0);
+
+
+            return accounts;
+        }
+        public List<Account> delete_account(string wanted_user_id, List<Account> accounts)
+        {
+            Console.WriteLine("\nCHECKING DELETE");
+
+            Account wanted_account = new Account();
+            //wanted_user_id = "foreandr";
+          
+            foreach (Account account in accounts.ToList())
+            {
+                if (account.UserId == wanted_user_id)
+                {
+                    wanted_account = account;
+                }
+                // exists validation
+                if (wanted_account.Description == "")
+                {
+                    Console.WriteLine("\nUSER DOES NOT EXIST, RETURNING TO MAIN");
+                    return accounts;
+                }
+                accounts.Remove(wanted_account);
+            }
+            return accounts;
+        }
+        public List<Account> update_account(string wanted_user_id, List<Account> accounts)
+        {
+            Console.WriteLine("\nCHECKING UPDATE");
+            Account wanted_account = new Account();
+            bool loop_holder = true;
+            foreach (Account account in accounts.ToList())
+            {
+                if (account.UserId == wanted_user_id)
+                {
+                    wanted_account = account;
+                }
+            }
+
+            // exists validation
+            if (wanted_account.Description == "")
+            {
+                Console.WriteLine("\nUSER DOES NOT EXIST, RETURNING TO MAIN");
+                return accounts;
+            }
+            
+            while (true)
+            {
+                
+                Console.WriteLine("Pick the number that corresponds to what you want to edit:");
+                Console.WriteLine("[1] Description");
+                Console.WriteLine("[2] UserId");
+                Console.WriteLine("[3] LoginUrl");
+                Console.WriteLine("[4] AccountNum");
+                Console.WriteLine("[5] Password");
+                Console.WriteLine("[6] EXIT UPDATE\n");
+
+                string wanted_change = Console.ReadLine();
+                switch (wanted_change)
+                {
+                    case "1":
+                        Console.WriteLine("Change the DESCRPTION to :");
+                        string wanted_desc = Console.ReadLine();
+                        wanted_account.Description = wanted_desc;
+                        break;
+                    case "2":
+                        Console.WriteLine("Change the UserId to :");
+                        string wanted_UserId = Console.ReadLine();
+                        wanted_account.UserId = wanted_UserId;
+                        break;
+                    case "3":
+                        Console.WriteLine("Change the LoginUrl to :");
+                        string wanted_LoginUrl = Console.ReadLine();
+                        wanted_account.LoginUrl = wanted_LoginUrl;
+                        break;
+                    case "4":
+                        Console.WriteLine("Change the AccountNum to :");
+                        string wantedAccountNum = Console.ReadLine();
+                        wanted_account.AccountNum = wantedAccountNum;
+                        break;
+                    case "5":
+                        string wanted_Password = get_password();
+                        wanted_account.Password = wanted_Password;
+                        break;
+                    case "6":
+                        Console.WriteLine("EXITING OUT OF UPDATE:");
+                        loop_holder = false;
+                        return accounts;
+                    default:
+                        Console.WriteLine();
+                        break;
+                }
+            }
+            
+        }
+        public List<Account> update_password(string wanted_user_id, List<Account> accounts)
+        {
+            Account wanted_account = new Account();
+            foreach (Account account in accounts.ToList())
+            {
+                if (account.UserId == wanted_user_id)
+                {
+                    wanted_account = account;
+                }
+
+            }
+            // exists validation
+            if (wanted_account.Description == "")
+            {
+                Console.WriteLine("\nUSER DOES NOT EXIST, RETURNING TO MAIN");
+                return accounts;
+            }
+
+            Console.WriteLine("UPDATING PASSWORD");
+            string wanted_change = get_password();
+            wanted_account.Password = wanted_change;
+            return accounts;
+        }
+        public void write_to_file(string path, List<Account> accounts)
+        {
+            foreach (Account account in accounts)
+            {
+                string data = (string)account.convert_to_string();               
+                File.WriteAllText(path + account.AccountNum + ".json", data);
+            }
+        }
+        public string introduction_menu()
+        {
+
+            Console.WriteLine("\nWELCOME TO ANDRE'S PROJECT");
+            Console.WriteLine("Pick your option");
+            Console.WriteLine("[1] List all fields for a user");
+            Console.WriteLine("[2] Create User");
+            Console.WriteLine("[3] Remove User");
+            Console.WriteLine("[4] Update Password");
+            Console.WriteLine("[5] Update Anything");
+            Console.WriteLine("[0] Quit");
+
+
+            string chosen_option = Console.ReadLine();
+            return chosen_option;      
+        }
     }
 }
 
